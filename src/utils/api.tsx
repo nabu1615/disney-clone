@@ -1,16 +1,28 @@
-import { VideoResponse, VideosResponse } from "@/types/api";
+import { Genre, Genres, VideoResponse, VideosResponse } from "@/types/api";
 import { GraphQLClient, gql } from "graphql-request";
 
 const endpoint = process.env.ENDPOINT || '';
 const graphQLClient = new GraphQLClient(endpoint, {
-    headers: {
-        "Authorization": `Bearer ${process.env.GRAPH_CMS_TOKEN}`
-    }
+  headers: {
+    "Authorization": `Bearer ${process.env.GRAPH_CMS_TOKEN}`
+  }
 })
 
+export const getGenres = async () => {
+  const genresQuery = gql`
+    query {
+      genres {
+        name
+      }
+    }
+  `
+  const data: Genres = await graphQLClient.request(genresQuery);
+
+  return data.genres;
+}
 
 export const getVideo = async (pageSlug: string) => {
-    const videoQuery = gql`
+  const videoQuery = gql`
     query($pageSlug: String!) {
       video(where: {
         slug: $pageSlug
@@ -21,7 +33,9 @@ export const getVideo = async (pageSlug: string) => {
         description,
         seen,
         slug,
-        tags,
+        genres {
+          name
+        }
         thumbnail {
           url
         },
@@ -32,17 +46,17 @@ export const getVideo = async (pageSlug: string) => {
     }
   `
 
-    const variables = {
-        pageSlug
-    }
+  const variables = {
+    pageSlug
+  }
 
-    const data: VideoResponse = await graphQLClient.request(videoQuery, variables);
+  const data: VideoResponse = await graphQLClient.request(videoQuery, variables);
 
-    return data.video;
+  return data.video;
 }
 
 export const getVideos = async () => {
-    const videosQuery = gql`
+  const videosQuery = gql`
     query {
       videos {
         createdAt,
@@ -51,7 +65,9 @@ export const getVideos = async () => {
         description,
         seen,
         slug,
-        tags,
+        genres {
+          name
+        }
         thumbnail {
           url
         },
@@ -62,7 +78,7 @@ export const getVideos = async () => {
     }
   `
 
-    const data: VideosResponse = await graphQLClient.request(videosQuery);
+  const data: VideosResponse = await graphQLClient.request(videosQuery);
 
-    return data.videos;
+  return data.videos;
 }

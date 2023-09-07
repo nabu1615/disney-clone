@@ -6,6 +6,14 @@ export interface VideosResponse {
     videos: Video[]
 }
 
+export interface Genre {
+    name: string
+}
+
+export interface Genres {
+    genres: Genre[]
+}
+
 export interface Video {
     createdAt: Date;
     id: string;
@@ -13,7 +21,7 @@ export interface Video {
     description: string;
     seen: null;
     slug: string;
-    tags: string[];
+    genres: Genre[];
     mp4: Mp4;
     thumbnail: Thumbnail;
 }
