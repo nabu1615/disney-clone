@@ -1,9 +1,9 @@
 export interface VideoResponse {
-    video: Video;
+    video: VideoType;
 }
 
 export interface VideosResponse {
-    videos: Video[]
+    videos: VideoType[]
 }
 
 export interface Genre {
@@ -14,12 +14,12 @@ export interface Genres {
     genres: Genre[]
 }
 
-export interface Video {
+export interface VideoType {
     createdAt: Date;
     id: string;
     title: string;
     description: string;
-    seen: null;
+    seen: boolean | null;
     slug: string;
     genres: Genre[];
     mp4: Mp4;

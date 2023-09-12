@@ -1,4 +1,5 @@
 // These styles apply to every route in the application
+import { NavBar } from '@/components/NavBar'
 import './globals.css'
 
 export const metadata = {
@@ -13,7 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className='m-0 w-full h-full'>
+        <main className="flex flex-col p-12 h-screen w-screen">
+          <NavBar />
+          {children}
+        </main>
+      </body>
     </html>
   )
 }

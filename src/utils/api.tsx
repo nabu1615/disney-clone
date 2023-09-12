@@ -42,6 +42,9 @@ export const getVideo = async (pageSlug: string) => {
         mp4 {
           url
         }
+        genres {
+          name
+        }
       }
     }
   `

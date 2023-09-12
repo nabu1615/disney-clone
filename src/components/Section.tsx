@@ -14,7 +14,7 @@ export const Section = ({ genre, videos }: SectionType) => {
             <div className='flex gap-6'>
                 {videos.map((video) => {
                     return (
-                        <Card url={video.slug} thumbnail={video.thumbnail} title={video.title} />)
+                        <Card key={video.title} url={video.slug} thumbnail={video.thumbnail} title={video.title} />)
                 })}
             </div>
 
